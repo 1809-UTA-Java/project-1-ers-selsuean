@@ -6,13 +6,15 @@
 
 <hibernate-configuration>
 	<session-factory>
-		<property name="hibenate.connection.url">
+		<property name="hibernate.connection.url">
 			jdbc:oracle:thin:@192.168.56.101:1521:xe
 		</property>
-		<property name="hibenate.connection.username">ERS</property>
-		<property name="hibenate.connection.password">revature</property>
-		<property name="hibenate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
-		<property name="hibenate.dialect">org.hibernate.dialect.Oracle10gDialect</property>
+		<property name="hibernate.connection.username">ERS</property>
+		<property name="hibernate.connection.password">revature</property>
+		<property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>
+		<mapping class="com.revature.ERS.model.Users"></mapping> 
+		<mapping class="com.revature.ERS.model.UserRole"></mapping> 
 	</session-factory>
 	
 <!-- 	
