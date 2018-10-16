@@ -15,6 +15,7 @@
 		<property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>
 		<mapping class="com.revature.ERS.model.Users"></mapping> 
 		<mapping class="com.revature.ERS.model.UserRole"></mapping> 
+		<mapping class="com.revature.ERS.model.Reimbursement"></mapping>
 	</session-factory>
 	
 <!-- 	
