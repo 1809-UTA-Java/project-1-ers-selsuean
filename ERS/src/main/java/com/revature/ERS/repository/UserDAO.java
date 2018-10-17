@@ -6,6 +6,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import com.revature.ERS.model.UserRole;
 import com.revature.ERS.model.Users;
 import com.revature.ERS.util.HibernateUtil;
 
@@ -59,5 +60,24 @@ public class UserDAO {
 		int result = (int) session.save(u);
 		tx.commit();
 		return result;
+	}
+	
+	public String thisUserRole(String username) {
+		List<UserRole> userRole = new ArrayList<>();
+		UserRole ur = null;
+		String role = null;
+		
+		Session session = HibernateUtil.getSession();
+		userRole = session.createQuery("select u.userRole.roles from Users u where u.username = :usernameVar")
+				.setString("usernameVar", username)
+				.list();
+		
+		if (role.isEmpty()) {
+			return role;
+		}
+		
+		ur = userRole.get(0);
+		role = ur.getRoles();
+		return role;
 	}
 }

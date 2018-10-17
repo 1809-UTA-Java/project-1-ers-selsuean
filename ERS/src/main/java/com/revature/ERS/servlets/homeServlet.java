@@ -30,9 +30,19 @@ public class homeServlet extends HttpServlet {
 		if (arg1.equals(u.getUsername()) && arg2.equals(u.getPassword())) {
 			HttpSession session = req.getSession(true);
 			session.setAttribute("username", arg1);
+			
+			if (u.getUserRole().equals("employee")) {
+				RequestDispatcher rd = req.getRequestDispatcher("employeehomepage.html");
+				rd.include(req, resp);
+			}
+			else if (u.getUserRole().equals("manager")) {
+				RequestDispatcher rd = req.getRequestDispatcher("managerhomepage.html");
+				rd.include(req, resp);
+			}
+			else {
+				
+			}
 
-			pw.println("Hello " + arg1 + "!");
-			pw.close();
 		} else {
 			RequestDispatcher rd = req.getRequestDispatcher("index.html");
 			// resp.sendRedirect("login");
