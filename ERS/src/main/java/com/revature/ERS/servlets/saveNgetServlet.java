@@ -40,7 +40,7 @@ public class saveNgetServlet {
 		Users postUser = (Users) om.readValue(request.getInputStream(), Users.class);
 		
 		PrintWriter pw = response.getWriter();
-		pw.print(dao.insertUser(postUser));
+		pw.print(dao.saveUser(postUser));
 		pw.close();
 	}
 }

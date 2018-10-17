@@ -2,8 +2,10 @@ package com.revature.ERS.model;
 
 import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -30,23 +32,20 @@ public class Reimbursement {
 	@Column(name = "R_RESOLVED")
 	private Timestamp resolved;
 
-//	private String author;
-//	private String resolver;
-
 	@ManyToOne
-	@JoinColumn(name = "USERROLES")
+	@JoinColumn(name = "U_ID_AUTHOR")
 	private Users author;
 
 	@ManyToOne
-	@JoinColumn(name = "USERROLES")
+	@JoinColumn(name = "U_ID_RESOLVER")
 	private Users resolver;
 
-	@ManyToOne
-	@JoinColumn(name = "REIMBURSEMENTTYPE")
+	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@JoinColumn(name = "RT_TYPE")
 	private ReimbursementType type;
 
-	@ManyToOne
-	@JoinColumn(name = "REIMBURSEMENTSTATUS")
+	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@JoinColumn(name = "RT_STATUS")
 	private ReimbursementStatus status;
 
 	public Reimbursement(int rID, double amount, String description, Timestamp submitted, Timestamp resolved,
@@ -143,8 +142,7 @@ public class Reimbursement {
 	@Override
 	public String toString() {
 		return "Reimbursement [rID=" + rID + ", amount=" + amount + ", description=" + description + ", submitted="
-				+ submitted + ", resolved=" + resolved + ", author=" + author + ", resolver=" + resolver + ", type="
-				+ type + ", status=" + status + "]";
+				+ submitted + ", resolved=" + resolved + ", type=" + type + ", status=" + status + "]";
 	}
 
 }

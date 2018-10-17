@@ -1,5 +1,7 @@
 package com.revature.ERS.model;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -35,9 +38,9 @@ public class Users {
 	@JoinColumn(name="UR_ID")
 	private UserRole userRole;
 	
-//	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+//	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 //	@JoinColumn(name="U_ID")
-//	Reimbursement rm;
+//	List<Reimbursement> rm;
 
 	public Users(int userID, String username, String password, String firstName, String lastName, String email,
 			UserRole userRole) {

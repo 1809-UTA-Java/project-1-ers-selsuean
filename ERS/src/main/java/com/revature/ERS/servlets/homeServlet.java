@@ -11,18 +11,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.revature.ERS.model.Users;
+import com.revature.ERS.repository.UserDAO;
+
 @WebServlet("/home")
 public class homeServlet extends HttpServlet {
+
+	UserDAO udao = new UserDAO();
+
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		String username = "limsuean";
-		String password = "password";
+//		String username = "limsuean";
+//		String password = "password";
 
 		PrintWriter pw = resp.getWriter();
-		String arg1 = req.getParameter("name");
+		String arg1 = req.getParameter("username");
 		String arg2 = req.getParameter("password");
+		
+		Users u = udao.thisUser(arg1);
 
-		if (arg1.equals(username) && arg2.equals(password)) {
+		if (arg1.equals(u.getUsername()) && arg2.equals(u.getPassword())) {
 			HttpSession session = req.getSession(true);
 			session.setAttribute("username", arg1);
 
@@ -43,7 +51,7 @@ public class homeServlet extends HttpServlet {
 		if (session != null) {
 
 			String arg1 = (String) session.getAttribute("username");
-			
+
 			pw.println("Hello again " + arg1 + "!");
 			pw.close();
 		} else {

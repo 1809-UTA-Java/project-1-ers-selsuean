@@ -16,6 +16,8 @@
 		<mapping class="com.revature.ERS.model.Users"></mapping> 
 		<mapping class="com.revature.ERS.model.UserRole"></mapping> 
 		<mapping class="com.revature.ERS.model.Reimbursement"></mapping>
+		<mapping class="com.revature.ERS.model.ReimbursementStatus"></mapping>
+		<mapping class="com.revature.ERS.model.ReimbursementType"></mapping>
 	</session-factory>
 	
 <!-- 	
