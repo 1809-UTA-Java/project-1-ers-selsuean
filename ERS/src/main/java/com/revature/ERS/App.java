@@ -39,20 +39,19 @@ public class App
 	public Reimbursement(int rID, double amount, String description,
 	 Timestamp submitted, Timestamp resolved,
 			Users author, Users resolver, ReimbursementType type, ReimbursementStatus status) {
-		
     	 */
-    	UserDAO udao = new UserDAO();
-    	Users u = udao.thisUser("limsuean");
-    	
-    	
-    	Timestamp currentTimestamp = new java.sql.Timestamp(Calendar.getInstance().getTime().getTime());
-    	ReimbursementType rt = new ReimbursementType(2, "Work");
-    	ReimbursementStatus rs = new ReimbursementStatus(2, "pending");
-    	ReimbursementDAO rdao = new ReimbursementDAO();
-    	Reimbursement newR = new Reimbursement(1, 100, "this is a test", currentTimestamp, currentTimestamp, 
-    			u, u, rt, rs);
-    	rdao.addReimbursement(newR);
-    	List<Reimbursement> rList = rdao.getReimbursements();
-    	System.out.println(rList.get(0).toString());
+//    	UserDAO udao = new UserDAO();
+//    	Users u = udao.thisUser("limsuean");
+//    	
+//    	
+//    	Timestamp currentTimestamp = new java.sql.Timestamp(Calendar.getInstance().getTime().getTime());
+//    	ReimbursementType rt = new ReimbursementType(2, "Work");
+//    	ReimbursementStatus rs = new ReimbursementStatus(2, "pending");
+//    	ReimbursementDAO rdao = new ReimbursementDAO();
+//    	Reimbursement newR = new Reimbursement(1, 100, "this is a test", currentTimestamp, currentTimestamp, 
+//    			u, u, rt, rs);
+//    	rdao.addReimbursement(newR);
+//    	List<Reimbursement> rList = rdao.getReimbursements();
+//    	System.out.println(rList.get(0).toString());
     }
 }

@@ -21,9 +21,6 @@ public class homeServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-//		String username = "limsuean";
-//		String password = "password";
-
 		PrintWriter pw = resp.getWriter();
 		String arg1 = req.getParameter("username");
 		String arg2 = req.getParameter("password");
