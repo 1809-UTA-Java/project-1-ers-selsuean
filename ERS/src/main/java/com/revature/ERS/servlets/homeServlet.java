@@ -24,23 +24,22 @@ public class homeServlet extends HttpServlet {
 		PrintWriter pw = resp.getWriter();
 		String arg1 = req.getParameter("username");
 		String arg2 = req.getParameter("password");
-		
+
+		//TODO: what if username entered is wrong? check dao 
 		Users u = udao.thisUser(arg1);
 
 		if (arg1.equals(u.getUsername()) && arg2.equals(u.getPassword())) {
 			HttpSession session = req.getSession(true);
 			session.setAttribute("username", arg1);
 			String role = udao.thisUserRole(arg1);
-			
+
 			if (role.equals("Employee")) {
 				RequestDispatcher rd = req.getRequestDispatcher("employeehomepage.html");
 				rd.include(req, resp);
-			}
-			else if (role.equals("Manager")) {
+			} else if (role.equals("Manager")) {
 				RequestDispatcher rd = req.getRequestDispatcher("managerhomepage.html");
 				rd.include(req, resp);
-			}
-			else {
+			} else {
 				PrintWriter out = resp.getWriter();
 				out.println("error");
 			}
@@ -60,11 +59,23 @@ public class homeServlet extends HttpServlet {
 		if (session != null) {
 
 			String arg1 = (String) session.getAttribute("username");
+			String role = udao.thisUserRole(arg1);
 
-			pw.println("Hello again " + arg1 + "!");
-			pw.close();
+			if (role.equals("Employee")) {
+				RequestDispatcher rd = req.getRequestDispatcher("employeehomepage.html");
+				rd.include(req, resp);
+			} else if (role.equals("Manager")) {
+				RequestDispatcher rd = req.getRequestDispatcher("managerhomepage.html");
+				rd.include(req, resp);
+			} else {
+				PrintWriter out = resp.getWriter();
+				out.println("error");
+			}
+
+//			pw.println("Hello again " + arg1 + "!");
+//			pw.close();
 		} else {
-			pw.println("Error !");
+			pw.println("You must login first!");
 		}
 	}
 }
