@@ -1,8 +1,15 @@
 package com.revature.ERS.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -27,11 +34,16 @@ public class Users {
 	@Column(name="U_EMAIL")
 	private String email;
 	
-	@Column(name="UR_ID")
-	private int userRoleID;
+	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@JoinColumn(name="UR_ID")
+	private UserRole userRole;
+	
+//	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+//	@JoinColumn(name="U_ID")
+//	List<Reimbursement> rm;
 
 	public Users(int userID, String username, String password, String firstName, String lastName, String email,
-			int userRoleID) {
+			UserRole userRole) {
 		super();
 		this.userID = userID;
 		this.username = username;
@@ -39,8 +51,10 @@ public class Users {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
-		this.userRoleID = userRoleID;
+		this.userRole = userRole;
 	}
+	
+	public Users() {}
 
 	public String getUsername() {
 		return username;
@@ -90,18 +104,18 @@ public class Users {
 		this.email = email;
 	}
 
-	public int getUserRoleID() {
-		return userRoleID;
+	public UserRole getUserRole() {
+		return userRole;
 	}
 
-	public void setUserRoleID(int userRoleID) {
-		this.userRoleID = userRoleID;
+	public void setUserRole(UserRole userRole) {
+		this.userRole = userRole;
 	}
 
 	@Override
 	public String toString() {
 		return "Users [userID=" + userID + ", username=" + username + ", password=" + password + ", firstName="
-				+ firstName + ", lastName=" + lastName + ", email=" + email + ", userRoleID=" + userRoleID + "]";
+				+ firstName + ", lastName=" + lastName + ", email=" + email + ", userRoleID=" + userRole + "]";
 	}
 
 	
