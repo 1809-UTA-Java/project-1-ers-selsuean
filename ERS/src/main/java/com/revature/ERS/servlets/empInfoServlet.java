@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -58,40 +57,34 @@ public class empInfoServlet extends HttpServlet {
 			 * .split() is a method used for String objects that will return the portion(s)
 			 * of the String separated by the given parameter
 			 */
-
-			String path = request.getPathInfo();
-
 			response.setContentType("text/xml");
 			PrintWriter pw = response.getWriter();
 
 			List<Users> userList = udao.allUsers();
 			ObjectMapper om = new XmlMapper();
 
-			// FOR PATH: ERS/employees/
-			if (path == null || path.equals("/")) {
+			/** ONLY MANAGERS CAN SEE FULL EMPLOYEES LIST */
+			if (role.equals("Manager")) {
+				String obj = om.writeValueAsString(userList);
+				pw.print(obj);
+				return;
+			}
 
-				/** ONLY MANAGERS CAN SEE FULL EMPLOYEES LIST */
-				if (role.equals("Manager")) {
-					String obj = om.writeValueAsString(userList);
+			if (role.equals("Employee")) {
+				int thisUserID = u.getUserID();
+				Users displayUser = null;
+				for (Users forU : userList) {
+					if (forU.getUserID() == thisUserID) {
+						displayUser = forU;
+					}
+				}
+
+				if (displayUser != null) {
+					String obj = om.writeValueAsString(displayUser);
 					pw.print(obj);
 					return;
 				}
-
 			}
-
-//			String[] pathParam = path.split("/");
-//			int userID = Integer.parseInt(pathParam[1]);
-//			Users thisUser = null;
-//			for (Users forU : userList) {
-//				if (forU.getUserID() == userID) {
-//					thisUser = forU;
-//				}
-//			}
-//
-//			if (thisUser != null) {
-//				String obj = om.writeValueAsString(thisUser);
-//				pw.print(obj);
-//			}
 
 		} else {
 			pwSesh.println("You must login first!");
@@ -105,14 +98,7 @@ public class empInfoServlet extends HttpServlet {
 
 		if (session != null) {
 			doGet(request, response);
-//			String arg1 = (String) session.getAttribute("username");
-//			String role = udao.thisUserRole(arg1);
-//			Users u = udao.thisUser(arg1);
-//		
-//		if (role.equals("Employee")) {
-//			RequestDispatcher rd = request.getRequestDispatcher("employee/" + Integer.toString(u.getUserID()));
-//			rd.forward(request, response);
-//		}
+
 		} else {
 			pwSesh.println("You must login first!");
 		}
