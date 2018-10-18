@@ -7,6 +7,7 @@ import java.util.List;
 import com.revature.ERS.model.Reimbursement;
 import com.revature.ERS.model.ReimbursementStatus;
 import com.revature.ERS.model.ReimbursementType;
+import com.revature.ERS.model.UserRole;
 import com.revature.ERS.model.Users;
 import com.revature.ERS.repository.ReimbursementDAO;
 import com.revature.ERS.repository.UserDAO;
@@ -25,13 +26,18 @@ public class App
     	 *  String lastName, String email,
 			UserRolserRol
     	 */
-//    	UserDAO udao = new UserDAO();
-//    	//Users newUser = new Users(2, "ddellea", "happy", "dillon", "dellea", "ddellea17@gmail.com", new UserRole(2, "Employee") );
-//    	
-//    	//udao.insertUser(newUser);
-//    	
-//    	List<Users> userList = udao.getUsers();
-//    	System.out.println(userList.get(0).toString());
+    	UserDAO udao = new UserDAO();
+    	//Users newUser = new Users(2, "ddellea", "happy", "dillon", "dellea", "ddellea17@gmail.com", new UserRole(2, "Employee") );
+    	
+    	//udao.insertUser(newUser);
+    	
+    //	List<Users> userList = udao.getUsers();
+
+	//	UserRole ur = new UserRole();
+    	String ur;
+		ur = udao.thisUserRole("limsuean");
+    //	System.out.println(userList.get(0).toString());
+		System.out.println(ur);
     	
     	
     	/**

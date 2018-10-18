@@ -63,21 +63,23 @@ public class UserDAO {
 	}
 	
 	public String thisUserRole(String username) {
-		List<UserRole> userRole = new ArrayList<>();
+		List<String> userRole = new ArrayList<>();
 		UserRole ur = null;
-		String role = null;
+		String role = "hi";
 		
 		Session session = HibernateUtil.getSession();
 		userRole = session.createQuery("select u.userRole.roles from Users u where u.username = :usernameVar")
 				.setString("usernameVar", username)
 				.list();
+		//select u.userRole.roles from Users u where u.username = :usernameVar
+		//select ur.roles from UserRole ur join ur.Users u where u.username = :usernameVar
+		//select ur.roles from UserRole ur join ur.urID u where u.username = :usernameVar
 		
 		if (role.isEmpty()) {
 			return role;
 		}
 		
-		ur = userRole.get(0);
-		role = ur.getRoles();
+		role = userRole.get(0);
 		return role;
 	}
 }

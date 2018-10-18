@@ -18,17 +18,14 @@ public class UserDAOTest {
 
 	@Test
 	public void testThisUserRole() {
-		String role = "manager";
+		String role = "Manager";
 		
 		UserDAO udao = new UserDAO();
 		UserRole ur = new UserRole();
 		String DAOrole;
 		
 		DAOrole = udao.thisUserRole("limsuean");
-//		assertTrue(ur.getRoles().equals(role));
-		//assertTrue(ur==null);
-//		assertEquals(DAOrole, role);
-		assertEquals(DAOrole, null);
-		
+
+		assertEquals(DAOrole, role);
 	}
 }

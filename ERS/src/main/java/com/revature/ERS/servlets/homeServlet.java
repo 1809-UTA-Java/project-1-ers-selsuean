@@ -30,17 +30,19 @@ public class homeServlet extends HttpServlet {
 		if (arg1.equals(u.getUsername()) && arg2.equals(u.getPassword())) {
 			HttpSession session = req.getSession(true);
 			session.setAttribute("username", arg1);
+			String role = udao.thisUserRole(arg1);
 			
-			if (u.getUserRole().equals("employee")) {
+			if (role.equals("Employee")) {
 				RequestDispatcher rd = req.getRequestDispatcher("employeehomepage.html");
 				rd.include(req, resp);
 			}
-			else if (u.getUserRole().equals("manager")) {
+			else if (role.equals("Manager")) {
 				RequestDispatcher rd = req.getRequestDispatcher("managerhomepage.html");
 				rd.include(req, resp);
 			}
 			else {
-				
+				PrintWriter out = resp.getWriter();
+				out.println("error");
 			}
 
 		} else {
