@@ -25,9 +25,9 @@ public class saveNgetServlet {
 		/**
 		 * ObjectMapper is part of jackson; used to de/serialize java objects
 		 * XMLMapper gives it the context of xml (og ObjectMapper is for JSON)
-		 * readvalue used to parse or deseriaalized XML content into a Java object
-		 * writevale used to serialize Java objects into XML
-		 * readvalye(what to read in, class to serialize into)
+		 * readvalue used to parse or deserialized XML content into a Java object
+		 * writevalue used to serialize Java objects into XML
+		 * readvalue(what to read in, class to serialize into)
 		 * 
 		 * PrintWriter allows you to write formatted data to a Writer object 
 		 * getWriter returns a PrintWriter object that can send character text to the client
