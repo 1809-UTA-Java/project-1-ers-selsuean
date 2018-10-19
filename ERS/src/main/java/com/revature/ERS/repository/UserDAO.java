@@ -6,6 +6,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import com.revature.ERS.model.Reimbursement;
 import com.revature.ERS.model.UserRole;
 import com.revature.ERS.model.Users;
 import com.revature.ERS.util.HibernateUtil;
@@ -37,8 +38,7 @@ public class UserDAO {
 
 		List<Users> users = new ArrayList<>();
 		Session session = HibernateUtil.getSession();
-		users = session.createQuery("from Users where username = :usernameVar")
-				.setString("usernameVar", username)
+		users = session.createQuery("from Users where username = :usernameVar").setString("usernameVar", username)
 				.list();
 		if (!users.isEmpty()) {
 			exist = users.get(0);
@@ -61,25 +61,37 @@ public class UserDAO {
 		tx.commit();
 		return result;
 	}
-	
+
 	public String thisUserRole(String username) {
 		List<String> userRole = new ArrayList<>();
 		UserRole ur = null;
-		String role = "hi";
-		
+		String role = null;
+
 		Session session = HibernateUtil.getSession();
 		userRole = session.createQuery("select u.userRole.roles from Users u where u.username = :usernameVar")
-				.setString("usernameVar", username)
-				.list();
-		//select u.userRole.roles from Users u where u.username = :usernameVar
-		//select ur.roles from UserRole ur join ur.Users u where u.username = :usernameVar
-		//select ur.roles from UserRole ur join ur.urID u where u.username = :usernameVar
-		
+				.setString("usernameVar", username).list();
+		// select u.userRole.roles from Users u where u.username = :usernameVar
+		// select ur.roles from UserRole ur join ur.Users u where u.username =
+		// :usernameVar
+		// select ur.roles from UserRole ur join ur.urID u where u.username =
+		// :usernameVar
+
+		role = userRole.get(0);
 		if (role.isEmpty()) {
 			return role;
 		}
-		
-		role = userRole.get(0);
+
 		return role;
+	}
+
+	public List<Reimbursement> thisUserReimbursement(String username) {
+		List<Reimbursement> rList = new ArrayList<>();
+		Reimbursement r = null;
+
+		Session session = HibernateUtil.getSession();
+		rList = session.createQuery("from Reimbursement where author.username = :usernameVar")
+				.setString("usernameVar", username).list();
+		
+		return rList;
 	}
 }

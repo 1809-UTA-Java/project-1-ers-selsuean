@@ -10,17 +10,17 @@ import com.revature.ERS.util.HibernateUtil;
 
 public class ReimbursementDAO {
 	
-	public List<Reimbursement> getReimbursements() {
+	public List<Reimbursement> allReimbursements() {
 		Session session = HibernateUtil.getSession();
 		return session.createQuery("from Reimbursement").list();
 	}
 	
-	public int addReimbursement(Reimbursement r) {
+	
+	public int saveReimbursement(Reimbursement r) {
 		Session session = HibernateUtil.getSession();
 		Transaction tx = session.beginTransaction();
 		int result = (int) session.save(r);
 		tx.commit();
 		return result;
-		
 	}
 }

@@ -17,9 +17,14 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.revature.ERS.model.Users;
 import com.revature.ERS.repository.UserDAO;
 
+
+// TODO: need button in emp view to update their info
+// TODO: need button in manager view to see specific employee and view their reimbursement request 
+//			maybe in manager home page tho 
+
 /**
  * localhost:8080/ERS/employees doGet: list all the employees IF
- * userRole='Manager' ELSE redirect to doGet employees/[u_id]
+ * userRole='Manager' ELSE list employee by u_id
  * 
  * 
  * @author Su Ean Lim
@@ -58,40 +63,36 @@ public class empInfoServlet extends HttpServlet {
 			 * .split() is a method used for String objects that will return the portion(s)
 			 * of the String separated by the given parameter
 			 */
-
-			String path = request.getPathInfo();
-
 			response.setContentType("text/xml");
 			PrintWriter pw = response.getWriter();
 
 			List<Users> userList = udao.allUsers();
 			ObjectMapper om = new XmlMapper();
 
-			// FOR PATH: ERS/employees/
-			if (path == null || path.equals("/")) {
-
-				/** ONLY MANAGERS CAN SEE FULL EMPLOYEES LIST */
-				if (role.equals("Manager")) {
-					String obj = om.writeValueAsString(userList);
-					pw.print(obj);
-					return;
-				}
-
+			/** ONLY MANAGERS CAN SEE FULL EMPLOYEES LIST */
+			if (role.equals("Manager")) {
+				String obj = om.writeValueAsString(userList);
+				pw.print(obj);
+				return;
 			}
 
-//			String[] pathParam = path.split("/");
-//			int userID = Integer.parseInt(pathParam[1]);
-//			Users thisUser = null;
-//			for (Users forU : userList) {
-//				if (forU.getUserID() == userID) {
-//					thisUser = forU;
-//				}
-//			}
-//
-//			if (thisUser != null) {
-//				String obj = om.writeValueAsString(thisUser);
-//				pw.print(obj);
-//			}
+			if (role.equals("Employee")) {
+				int thisUserID = u.getUserID();
+				Users displayUser = null;
+				for (Users forU : userList) {
+					if (forU.getUserID() == thisUserID) {
+						displayUser = forU;
+					}
+				}
+
+				if (displayUser != null) {
+					String obj = om.writeValueAsString(displayUser);
+					pw.print(obj);	
+				}
+				
+			}
+			RequestDispatcher rd = request.getRequestDispatcher("updatebutton.html");
+			rd.include(request, response);
 
 		} else {
 			pwSesh.println("You must login first!");
@@ -105,14 +106,7 @@ public class empInfoServlet extends HttpServlet {
 
 		if (session != null) {
 			doGet(request, response);
-//			String arg1 = (String) session.getAttribute("username");
-//			String role = udao.thisUserRole(arg1);
-//			Users u = udao.thisUser(arg1);
-//		
-//		if (role.equals("Employee")) {
-//			RequestDispatcher rd = request.getRequestDispatcher("employee/" + Integer.toString(u.getUserID()));
-//			rd.forward(request, response);
-//		}
+
 		} else {
 			pwSesh.println("You must login first!");
 		}
