@@ -6,12 +6,21 @@
 	<body>
 		<h1>Login:</h1>
 	
-		<form action="home" method="post">
-			Username: 
-			<input type="text" name="username" id="username">
-			Password: 
-			<input type="password" name="password" id="password">
-			<button type="submit">POST</button>
+		<form action="new" method="post">
+			Description of Reimbursement: 
+			<textarea name="description" id="description"></textarea>
+			Amount: 
+			<input type="text" name="aount" id="amount">
+			Type: 
+			<input type="radio" name="type" id="type" value="Work">
+			<input type="radio" name="type" id="type" value="Transportation">
+			<input type="radio" name="type" id="type" value="Food">
+			<input type="radio" name="type" id="type" value="Lodging">
+			
+			<button type="submit">SUBMIT</button>
 		</form>
 	</body>
 </html>
+
+<!-- Reimbursement(int rID, double amount, String description, Timestamp submitted, Timestamp resolved,
+			Users author, Users resolver, ReimbursementType type, ReimbursementStatus status) -->

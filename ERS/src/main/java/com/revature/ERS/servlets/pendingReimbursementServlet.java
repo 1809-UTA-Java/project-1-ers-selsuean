@@ -40,11 +40,12 @@ public class pendingReimbursementServlet extends HttpServlet {
 			
 			ObjectMapper om = new XmlMapper();
 			List<Reimbursement> allPendReimbursements = new ArrayList<Reimbursement>();
+			List<Reimbursement> thisReimbursements = new ArrayList<Reimbursement>();
 			
 			if (role.equals("Manager")) {
 				
 				for (Reimbursement r : rList) {
-					if (r.getStatus().equals("pending")) {
+					if (r.getStatus().getrStatus().equals("pending")) {
 						allPendReimbursements.add(r);
 					}
 				}
@@ -54,7 +55,14 @@ public class pendingReimbursementServlet extends HttpServlet {
 			}
 			
 			if (role.equals("Employee")) {
-				allPendReimbursements = udao.thisUserReimbursement(arg1);
+				thisReimbursements = udao.thisUserReimbursement(arg1);
+				
+				for (Reimbursement r : thisReimbursements) {
+					if (r.getStatus().getrStatus().equals("pending")) {
+						allPendReimbursements.add(r);
+					}
+				}
+				
 				String obj = om.writeValueAsString(allPendReimbursements);
 				pw.print(obj);
 				return;
