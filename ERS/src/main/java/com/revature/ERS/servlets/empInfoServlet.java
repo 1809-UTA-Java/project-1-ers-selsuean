@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,9 +17,14 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.revature.ERS.model.Users;
 import com.revature.ERS.repository.UserDAO;
 
+
+// TODO: need button in emp view to update their info
+// TODO: need button in manager view to see specific employee and view their reimbursement request 
+//			maybe in manager home page tho 
+
 /**
  * localhost:8080/ERS/employees doGet: list all the employees IF
- * userRole='Manager' ELSE redirect to doGet employees/[u_id]
+ * userRole='Manager' ELSE list employee by u_id
  * 
  * 
  * @author Su Ean Lim
@@ -81,10 +87,12 @@ public class empInfoServlet extends HttpServlet {
 
 				if (displayUser != null) {
 					String obj = om.writeValueAsString(displayUser);
-					pw.print(obj);
-					return;
+					pw.print(obj);	
 				}
+				
 			}
+			RequestDispatcher rd = request.getRequestDispatcher("updatebutton.html");
+			rd.include(request, response);
 
 		} else {
 			pwSesh.println("You must login first!");
