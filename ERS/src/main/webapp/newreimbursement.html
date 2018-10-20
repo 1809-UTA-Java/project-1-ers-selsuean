@@ -1,25 +1,30 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Hello</title>
-	</head>
-	<body>
-		<h1>Login:</h1>
-	
-		<form action="new" method="post">
-			Description of Reimbursement: 
+<head>
+<title>Submit</title>
+</head>
+<body>
+	<h1>New Reimbursement Request:</h1>
+
+	<form action="new" method="post">
+		<div>
+			Description of Reimbursement:
 			<textarea name="description" id="description"></textarea>
-			Amount: 
-			<input type="text" name="aount" id="amount">
-			Type: 
-			<input type="radio" name="type" id="type" value="Work">
-			<input type="radio" name="type" id="type" value="Transportation">
-			<input type="radio" name="type" id="type" value="Food">
-			<input type="radio" name="type" id="type" value="Lodging">
-			
-			<button type="submit">SUBMIT</button>
-		</form>
-	</body>
+		</div>
+		<div>
+			Amount: <input type="text" name="amount" id="amount">
+		</div>
+		<div>
+			Type: <input type="radio" name="type" id="type1" value="Work">
+			<label for="type1">Work</label> <input type="radio" name="type"
+				id="type2" value="Transportation"> <label for="type1">Transportation</label>
+			<input type="radio" name="type" id="type3" value="Food"> <label
+				for="type1">Food</label> <input type="radio" name="type" id="type4"
+				value="Lodging"> <label for="type1">Lodging</label>
+		</div>
+		<button type="submit">SUBMIT</button>
+	</form>
+</body>
 </html>
 
 <!-- Reimbursement(int rID, double amount, String description, Timestamp submitted, Timestamp resolved,

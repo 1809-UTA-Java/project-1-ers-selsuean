@@ -36,7 +36,7 @@ public class newReimbursementServlet extends HttpServlet {
 			String role = udao.thisUserRole(arg1);
 
 			if (role.equals("Employee")) {
-				RequestDispatcher rd = request.getRequestDispatcher("newReimbursement.html");
+				RequestDispatcher rd = request.getRequestDispatcher("newreimbursement.html");
 				rd.forward(request, response);
 
 			} else {
@@ -57,7 +57,7 @@ public class newReimbursementServlet extends HttpServlet {
 			if (role.equals("Employee")) {
 
 				String descr = request.getParameter("description");
-				double amount = Integer.parseInt(request.getParameter("amount"));
+				double amount = Double.parseDouble(request.getParameter("amount"));
 				String type = request.getParameter("type");
 				
 				/**
