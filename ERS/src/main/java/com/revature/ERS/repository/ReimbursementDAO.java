@@ -45,4 +45,15 @@ public class ReimbursementDAO {
 		int maxID = (int) query.uniqueResult();
 		return maxID +1;
 	}
+	
+	//TODO Test
+	public void actionReimbursement(int id, String action) {
+		Session session = HibernateUtil.getSession();
+		session.createQuery("update ReimbursementStatus set rStatus = :actionVar where rID = :idVar")
+				.setInteger("idVar", id).setString("actionVar", action);
+		
+		//update ReimbursementStatus set rStatus = :actionVar where rID = :idVar
+		
+		
+	}
 }
