@@ -2,6 +2,7 @@ package com.revature.ERS.repository;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -22,5 +23,26 @@ public class ReimbursementDAO {
 		int result = (int) session.save(r);
 		tx.commit();
 		return result;
+	}
+	
+	public int nextReimbursementID() {
+		Session session = HibernateUtil.getSession();
+		Query query = session.createQuery("select max(rID) from Reimbursement");
+		int maxID = (int) query.uniqueResult();
+		return maxID +1;
+	}
+	
+	public int nextReimbursementTypeID() {
+		Session session = HibernateUtil.getSession();
+		Query query = session.createQuery("select max(rID) from ReimbursementType");
+		int maxID = (int) query.uniqueResult();
+		return maxID +1;
+	}
+	
+	public int nextReimbursementStatusID() {
+		Session session = HibernateUtil.getSession();
+		Query query = session.createQuery("select max(rID) from ReimbursementStatus");
+		int maxID = (int) query.uniqueResult();
+		return maxID +1;
 	}
 }
