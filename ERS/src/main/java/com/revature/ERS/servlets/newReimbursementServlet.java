@@ -80,6 +80,8 @@ public class newReimbursementServlet extends HttpServlet {
 						rType, rStatus);
 				
 				rdao.saveReimbursement(thisR);
+				
+				pwSesh.println("Reimursement submitted!");
 
 			} else {
 				pwSesh.println("You must login first!");
