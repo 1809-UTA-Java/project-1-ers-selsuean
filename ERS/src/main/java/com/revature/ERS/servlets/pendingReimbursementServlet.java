@@ -24,7 +24,7 @@ public class pendingReimbursementServlet extends HttpServlet {
 
 	ReimbursementDAO rdao = new ReimbursementDAO();
 	UserDAO udao = new UserDAO();
-	List<Reimbursement> rList = rdao.allReimbursements();
+	
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -40,10 +40,11 @@ public class pendingReimbursementServlet extends HttpServlet {
 			
 			ObjectMapper om = new XmlMapper();
 			List<Reimbursement> allPendReimbursements = new ArrayList<Reimbursement>();
+			List<Reimbursement> allUserPendReimbursements = new ArrayList<Reimbursement>();
 			List<Reimbursement> thisReimbursements = new ArrayList<Reimbursement>();
 			
 			if (role.equals("Manager")) {
-				
+				List<Reimbursement> rList = rdao.allReimbursements();
 				for (Reimbursement r : rList) {
 					if (r.getStatus().getrStatus().equals("pending")) {
 						allPendReimbursements.add(r);
@@ -59,11 +60,11 @@ public class pendingReimbursementServlet extends HttpServlet {
 				
 				for (Reimbursement r : thisReimbursements) {
 					if (r.getStatus().getrStatus().equals("pending")) {
-						allPendReimbursements.add(r);
+						allUserPendReimbursements.add(r);
 					}
 				}
 				
-				String obj = om.writeValueAsString(allPendReimbursements);
+				String obj = om.writeValueAsString(allUserPendReimbursements);
 				pw.print(obj);
 				return;
 			}

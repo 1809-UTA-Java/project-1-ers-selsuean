@@ -33,12 +33,12 @@ public class actionReimbursementServlet extends HttpServlet {
 		PrintWriter pwSesh = response.getWriter();
 		
 		if (session != null) {
-			RequestDispatcher rd = request.getRequestDispatcher("approvereimbursement.html");
+			
 			
 			String arg1 = (String) session.getAttribute("username");
 			String role = udao.thisUserRole(arg1);
 			
-			response.setContentType("text/xml");
+			response.setContentType("text/html");
 			PrintWriter pw = response.getWriter();
 			
 			ObjectMapper om = new XmlMapper();
@@ -55,15 +55,17 @@ public class actionReimbursementServlet extends HttpServlet {
 				
 				String obj = om.writeValueAsString(allPendReimbursements);
 				pw.print(obj);
-//				pw.close();
-//				
-//				PrintWriter pw2 = response.getWriter();
+			
+				
 				//include html form for option to approve or deny and text to enter id
 				
-				rd.forward(request, response);
-				//call dao to take action on that reimbursement 
-				pw.close();
 				
+				
+				//call dao to take action on that reimbursement 
+			
+				
+				RequestDispatcher rd = request.getRequestDispatcher("approvereimbursement.html");
+				rd.include(request, response);
 				
 			}
 			
@@ -71,7 +73,8 @@ public class actionReimbursementServlet extends HttpServlet {
 			pwSesh.println("You must login first!");
 		}
 		
-			
+		
+		pwSesh.close();
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -80,7 +83,19 @@ public class actionReimbursementServlet extends HttpServlet {
 		PrintWriter pwSesh = response.getWriter();
 		
 		if (session != null) {
-			pwSesh.println("test");
+			String arg1 = (String) session.getAttribute("username");
+			String role = udao.thisUserRole(arg1);
+			
+			if (role.equals("Manager")) {
+				String status = request.getParameter("status");
+				int rID = Integer.parseInt(request.getParameter("rID"));
+				//Reimbursement thisR = rdao.thisReimbursement(rID);
+				
+				rdao.actionReimbursement(rID, status);
+			}
+			
+		} else {
+			pwSesh.println("You must login first!");
 		}
 		
 		

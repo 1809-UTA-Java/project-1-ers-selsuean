@@ -71,8 +71,8 @@ public class newReimbursementServlet extends HttpServlet {
 				
 				int rID = rdao.nextReimbursementID();
 				Timestamp submitted = new java.sql.Timestamp(Calendar.getInstance().getTime().getTime());
-				ReimbursementType rType = new ReimbursementType(rdao.nextReimbursementTypeID(),type);
-				ReimbursementStatus rStatus = new ReimbursementStatus(rdao.nextReimbursementStatusID(),"pending");
+				ReimbursementType rType = new ReimbursementType(rID,type);
+				ReimbursementStatus rStatus = new ReimbursementStatus(rID,"pending");
 				
 				Reimbursement thisR = new Reimbursement(rID, amount, descr, 
 						submitted, null, 

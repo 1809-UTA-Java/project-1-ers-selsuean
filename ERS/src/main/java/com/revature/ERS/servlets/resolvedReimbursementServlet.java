@@ -45,7 +45,7 @@ public class resolvedReimbursementServlet extends HttpServlet {
 			if (role.equals("Manager")) {
 
 				for (Reimbursement r : rList) {
-					if (r.getStatus().getrStatus().equals("resolved")) {
+					if (r.getStatus().getrStatus().equals("approved")) {
 						allResolvedReimbursements.add(r);
 					}
 				}
@@ -58,7 +58,7 @@ public class resolvedReimbursementServlet extends HttpServlet {
 				thisReimbursements = udao.thisUserReimbursement(arg1);
 
 				for (Reimbursement r : thisReimbursements) {
-					if (r.getStatus().getrStatus().equals("pending")) {
+					if (r.getStatus().getrStatus().equals("approved")) {
 						allResolvedReimbursements.add(r);
 					}
 				}

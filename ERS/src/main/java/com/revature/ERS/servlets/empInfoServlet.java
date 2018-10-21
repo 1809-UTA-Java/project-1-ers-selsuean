@@ -91,8 +91,8 @@ public class empInfoServlet extends HttpServlet {
 				}
 				
 			}
-			RequestDispatcher rd = request.getRequestDispatcher("updatebutton.html");
-			rd.include(request, response);
+//			RequestDispatcher rd = request.getRequestDispatcher("updatebutton.html");
+//			rd.include(request, response);
 
 		} else {
 			pwSesh.println("You must login first!");
