@@ -18,62 +18,60 @@ import com.revature.ERS.model.Reimbursement;
 import com.revature.ERS.repository.ReimbursementDAO;
 import com.revature.ERS.repository.UserDAO;
 
-@WebServlet("/pending")
-public class pendingReimbursementServlet extends HttpServlet {
+@WebServlet("/resolved")
+public class resolvedReimbursementServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	ReimbursementDAO rdao = new ReimbursementDAO();
 	UserDAO udao = new UserDAO();
-	
-	
+	List<Reimbursement> rList = rdao.allReimbursements();
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		PrintWriter pwSesh = response.getWriter();
-		
-		if (session!=null) {
+
+		if (session != null) {
 			String arg1 = (String) session.getAttribute("username");
 			String role = udao.thisUserRole(arg1);
-			
+
 			response.setContentType("text/xml");
 			PrintWriter pw = response.getWriter();
-			
+
 			ObjectMapper om = new XmlMapper();
-			List<Reimbursement> allPendReimbursements = new ArrayList<Reimbursement>();
-			List<Reimbursement> allUserPendReimbursements = new ArrayList<Reimbursement>();
+			List<Reimbursement> allResolvedReimbursements = new ArrayList<Reimbursement>();
 			List<Reimbursement> thisReimbursements = new ArrayList<Reimbursement>();
-			
+
 			if (role.equals("Manager")) {
-				List<Reimbursement> rList = rdao.allReimbursements();
+
 				for (Reimbursement r : rList) {
-					if (r.getStatus().getrStatus().equals("pending")) {
-						allPendReimbursements.add(r);
+					if (r.getStatus().getrStatus().equals("approved")) {
+						allResolvedReimbursements.add(r);
 					}
 				}
-				String obj = om.writeValueAsString(allPendReimbursements);
+				String obj = om.writeValueAsString(allResolvedReimbursements);
 				pw.print(obj);
 				return;
 			}
-			
+
 			if (role.equals("Employee")) {
 				thisReimbursements = udao.thisUserReimbursement(arg1);
-				
+
 				for (Reimbursement r : thisReimbursements) {
-					if (r.getStatus().getrStatus().equals("pending")) {
-						allUserPendReimbursements.add(r);
+					if (r.getStatus().getrStatus().equals("approved")) {
+						allResolvedReimbursements.add(r);
 					}
 				}
-				
-				String obj = om.writeValueAsString(allUserPendReimbursements);
+
+				String obj = om.writeValueAsString(allResolvedReimbursements);
 				pw.print(obj);
 				return;
 			}
-			
-			
-			
+
 		} else {
 			pwSesh.println("You must login first!");
 		}
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
