@@ -3,6 +3,7 @@ package com.revature.ERS.repository;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -93,5 +94,45 @@ public class UserDAO {
 				.setString("usernameVar", username).list();
 		
 		return rList;
+	}
+	
+//	public void actionUser(String username, String field, String entry) {
+//		Session session = HibernateUtil.getSession();
+//		Transaction tx = session.beginTransaction();
+//		Query query = session.createQuery("update Users set :fieldVar = :entryVar where username = :usernameVar")
+//						.setString("fieldVar", field).setString("entryVar", entry).setString("usernameVar", username);
+//		query.executeUpdate();
+//		tx.commit();
+//		//update ReimbursementStatus set rStatus = :actionVar where rID = :idVar		
+//	}
+	
+	public void actionUsername(String username, String entry) {
+		Session session = HibernateUtil.getSession();
+		Transaction tx = session.beginTransaction();
+		Query query = session.createQuery("update Users set username = :entryVar where username = :usernameVar")
+						.setString("entryVar", entry).setString("usernameVar", username);
+		query.executeUpdate();
+		tx.commit();
+		//update ReimbursementStatus set rStatus = :actionVar where rID = :idVar		
+	}
+	
+	public void actionPassword(String username, String entry) {
+		Session session = HibernateUtil.getSession();
+		Transaction tx = session.beginTransaction();
+		Query query = session.createQuery("update Users set password = :entryVar where username = :usernameVar")
+						.setString("entryVar", entry).setString("usernameVar", username);
+		query.executeUpdate();
+		tx.commit();
+		//update ReimbursementStatus set rStatus = :actionVar where rID = :idVar		
+	}
+	
+	public void actionEmail(String username, String entry) {
+		Session session = HibernateUtil.getSession();
+		Transaction tx = session.beginTransaction();
+		Query query = session.createQuery("update Users set email = :entryVar where username = :usernameVar")
+						.setString("entryVar", entry).setString("usernameVar", username);
+		query.executeUpdate();
+		tx.commit();
+		//update ReimbursementStatus set rStatus = :actionVar where rID = :idVar		
 	}
 }

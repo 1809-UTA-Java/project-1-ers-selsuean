@@ -63,7 +63,7 @@ public class empInfoServlet extends HttpServlet {
 			 * .split() is a method used for String objects that will return the portion(s)
 			 * of the String separated by the given parameter
 			 */
-			response.setContentType("text/xml");
+			response.setContentType("text/html");
 			PrintWriter pw = response.getWriter();
 
 			List<Users> userList = udao.allUsers();
@@ -91,8 +91,8 @@ public class empInfoServlet extends HttpServlet {
 				}
 				
 			}
-//			RequestDispatcher rd = request.getRequestDispatcher("updatebutton.html");
-//			rd.include(request, response);
+			RequestDispatcher rd = request.getRequestDispatcher("updatebutton.html");
+			rd.include(request, response);
 
 		} else {
 			pwSesh.println("You must login first!");
@@ -105,7 +105,28 @@ public class empInfoServlet extends HttpServlet {
 		PrintWriter pwSesh = response.getWriter();
 
 		if (session != null) {
-			doGet(request, response);
+			String arg1 = (String) session.getAttribute("username");
+			String choice = request.getParameter("info");
+			if (choice.equals("username")) {
+				String entry = request.getParameter("usernameentry");
+				udao.actionUsername(arg1, entry);
+				pwSesh.print("Username updated. You will have to login again.");
+//				RequestDispatcher rd = request.getRequestDispatcher("/logout");
+//				rd.forward(request, response);
+				response.setHeader("Refresh", "2; /ERS/logout");
+			}
+			if (choice.equals("password")) {
+				String entry = request.getParameter("passwordentry");
+				udao.actionPassword(arg1, entry);
+				pwSesh.print("Password updated");
+			}
+			if (choice.equals("email")) {
+				String entry = request.getParameter("emailentry");
+				udao.actionEmail(arg1, entry);
+				pwSesh.print("Email updated");
+			}
+			
+			
 
 		} else {
 			pwSesh.println("You must login first!");

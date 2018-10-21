@@ -16,16 +16,52 @@ public class UserDAOTest {
 //		
 //	}
 
+//	@Test
+//	public void testThisUserRole() {
+//		String role = "Manager";
+//		
+//		UserDAO udao = new UserDAO();
+//		UserRole ur = new UserRole();
+//		String DAOrole;
+//		
+//		DAOrole = udao.thisUserRole("limsuean");
+//
+//		assertEquals(DAOrole, role);
+//	}
+	
+//	@Test
+//	public void testActionPassword() {
+//		String username = "ddellea";
+//		String entry = "iloveyou";
+//		
+//		UserDAO udao = new UserDAO();
+//		udao.actionPassword(username, entry);
+//		
+//		Users thisUser = udao.thisUser(username);
+//		assertTrue(thisUser.getPassword().equals(entry));
+//	}
+	
+//	@Test
+//	public void testActionUsername() {
+//		String username = "ddellea";
+//		String entry = "dillon.dellea";
+//		
+//		UserDAO udao = new UserDAO();
+//		udao.actionUsername(username, entry);
+//		
+//		Users thisUser = udao.thisUser(entry);
+//		assertTrue(thisUser.getUsername().equals(entry));
+//	}
+	
 	@Test
-	public void testThisUserRole() {
-		String role = "Manager";
+	public void testActionEmail() {
+		String username = "dillon.dellea";
+		String entry = "dillon.dellea@fakedomain.com";
 		
 		UserDAO udao = new UserDAO();
-		UserRole ur = new UserRole();
-		String DAOrole;
+		udao.actionEmail(username, entry);
 		
-		DAOrole = udao.thisUserRole("limsuean");
-
-		assertEquals(DAOrole, role);
+		Users thisUser = udao.thisUser(username);
+		assertTrue(thisUser.getEmail().equals(entry));
 	}
 }
