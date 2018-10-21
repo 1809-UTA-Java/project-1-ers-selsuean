@@ -3,7 +3,34 @@
 <head></head>
 <body>
 
-	<form action="employees" method="get">
+	<form action="employees" method="post">
+		Would you like to update this information? If so, select the parameter
+		you'd like to change:
+		<div>
+			<input type="radio" name="info" id="username" value="username">
+			<label for="username">Username</label>
+		</div>
+		<div>
+			What would you like to change it to? 
+			<input type="text" name="usernameentry"	id="usernameentry">
+		</div>
+		<div>
+			<input type="radio" name="info" id="password" value="password">
+			<label for="password">Password</label>
+		</div>
+		<div>
+			What would you like to change it to? 
+			<input type="text" name="passwordentry" id="passwordentry">
+		</div>
+		<div>
+			<input type="radio" name="info" id="email" value="email"> <label
+				for="email">Email</label>
+		</div>
+		<div>
+			What would you like to change it to? 
+			<input type="text" name="emailentry" id="emailentry">
+		</div>
+
 		<button type="submit">Update Profile Information</button>
 	</form>
 
