@@ -24,7 +24,7 @@ public class resolvedReimbursementServlet extends HttpServlet {
 
 	ReimbursementDAO rdao = new ReimbursementDAO();
 	UserDAO udao = new UserDAO();
-	List<Reimbursement> rList = rdao.allReimbursements();
+	
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -43,7 +43,7 @@ public class resolvedReimbursementServlet extends HttpServlet {
 			List<Reimbursement> thisReimbursements = new ArrayList<Reimbursement>();
 
 			if (role.equals("Manager")) {
-
+				List<Reimbursement> rList = rdao.allReimbursements();
 				for (Reimbursement r : rList) {
 					if (r.getStatus().getrStatus().equals("approved")) {
 						allResolvedReimbursements.add(r);
