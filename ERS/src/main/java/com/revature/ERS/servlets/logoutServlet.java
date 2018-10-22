@@ -1,6 +1,8 @@
 package com.revature.ERS.servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,7 +23,11 @@ public class logoutServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		PrintWriter pw = response.getWriter();
 		session.invalidate();
+		
+		pw.println("You have been logged out. You will be automatically sent to login page in a couple seconds.");
+		response.setHeader("Refresh", "3; /ERS/login");
 
 	}
 
