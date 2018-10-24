@@ -63,20 +63,21 @@ public class empInfoServlet extends HttpServlet {
 			 * .split() is a method used for String objects that will return the portion(s)
 			 * of the String separated by the given parameter
 			 */
-			response.setContentType("text/html");
+		//	response.setContentType("text/html");
 			PrintWriter pw = response.getWriter();
 
 			List<Users> userList = udao.allUsers();
-			ObjectMapper om = new XmlMapper();
+			ObjectMapper om = new ObjectMapper();
 
 			/** ONLY MANAGERS CAN SEE FULL EMPLOYEES LIST */
 			if (role.equals("Manager")) {
-				String obj = om.writeValueAsString(userList);
+				String obj = om.writerWithDefaultPrettyPrinter().writeValueAsString(userList);
 				pw.print(obj);
 				return;
 			}
 
 			if (role.equals("Employee")) {
+				
 				int thisUserID = u.getUserID();
 				Users displayUser = null;
 				for (Users forU : userList) {
@@ -91,6 +92,7 @@ public class empInfoServlet extends HttpServlet {
 				}
 				
 			}
+			response.setContentType("text/html");
 			RequestDispatcher rd = request.getRequestDispatcher("updatebutton.html");
 			rd.include(request, response);
 

@@ -24,6 +24,9 @@ public class Reimbursement {
 	@Column(name = "R_DESCRIPTION")
 	private String description;
 	// receipt blob
+	
+//	@Column(name="R_RECEIPT")
+//	private byte[] image;
 
 	@Column(name = "R_SUBMITTED")
 	private Timestamp submitted;
