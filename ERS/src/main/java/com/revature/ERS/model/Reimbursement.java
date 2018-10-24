@@ -24,9 +24,9 @@ public class Reimbursement {
 	@Column(name = "R_DESCRIPTION")
 	private String description;
 	// receipt blob
-	
-//	@Column(name="R_RECEIPT")
-//	private byte[] image;
+
+	@Column(name = "R_RECEIPT")
+	private byte[] image;
 
 	@Column(name = "R_SUBMITTED")
 	private Timestamp submitted;
@@ -42,11 +42,11 @@ public class Reimbursement {
 	@JoinColumn(name = "U_ID_RESOLVER")
 	private Users resolver;
 
-	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "RT_TYPE")
 	private ReimbursementType type;
 
-	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "RT_STATUS")
 	private ReimbursementStatus status;
 
@@ -91,6 +91,14 @@ public class Reimbursement {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
 	}
 
 	public Timestamp getSubmitted() {
